@@ -3,7 +3,6 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [main]
-  workflow_dispatch:
 
 permissions:
   contents: write
@@ -14,6 +13,7 @@ concurrency:
 
 jobs:
   deploy:
+    if: ${{ !contains(github.event.head_commit.message, '[skip ci]') }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -24,14 +24,19 @@ jobs:
           cache: npm
 
       - run: npm ci
-
       - run: npm run build
-        env:
-          GITHUB_PAGES: 'true'
 
-      - name: Deploy to gh-pages branch
-        uses: peaceiris/actions-gh-pages@v4
+      - name: Publish build to repository root
+        run: |
+          cp dist/index.html index.html
+          rm -rf assets
+          cp -r dist/assets assets
+          rm -rf logos
+          cp -r dist/logos logos
+          cp dist/favicon.svg favicon.svg
+          cp dist/.nojekyll .nojekyll
+
+      - uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
-          cname: false
+          commit_message: 'Deploy site [skip ci]'
+          file_pattern: 'index.html assets logos favicon.svg .nojekyll'

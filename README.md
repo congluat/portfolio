@@ -30,11 +30,11 @@ npm run preview
 
 ## Deploy to GitHub Pages
 
-1. Push to `main` — GitHub Actions builds and deploys to the `gh-pages` branch
-2. Go to **Settings → Pages → Build and deployment**
-3. Set **Source** to **Deploy from a branch**
-4. Set **Branch** to `gh-pages` / `/ (root)`
-5. Site live at: **https://congluat.github.io/portfolio/**
+Push to `main` — GitHub Actions builds and commits the production files (`index.html`, `assets/`, `logos/`) to the repo root. GitHub Pages serves from **main / (root)** automatically.
+
+Site: **https://congluat.github.io/portfolio/**
+
+Local dev uses `index.dev.html` — run `npm run dev` (auto-restores dev `index.html`).
 
 ## Tech stack
 
