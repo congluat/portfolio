@@ -30,11 +30,11 @@ npm run preview
 
 ## Deploy to GitHub Pages
 
-1. Push this project to the `main` branch of [congluat/portfolio](https://github.com/congluat/portfolio)
-2. Enable GitHub Pages
-3. Go to **Settings → Pages → Build and deployment**
-4. Set **Source** to **GitHub Actions**
-5. Push to `main` — the workflow in `.github/workflows/deploy.yml` will build and deploy automatically
+1. Push to `main` — GitHub Actions builds and deploys to the `gh-pages` branch
+2. Go to **Settings → Pages → Build and deployment**
+3. Set **Source** to **Deploy from a branch**
+4. Set **Branch** to `gh-pages` / `/ (root)`
+5. Site live at: **https://congluat.github.io/portfolio/**
 
 ## Tech stack
 
