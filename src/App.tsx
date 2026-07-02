@@ -11,10 +11,12 @@ import Footer from './components/Footer'
 import ParticleField from './components/ParticleField'
 import CursorGlow from './components/CursorGlow'
 import Preloader from './components/Preloader'
+import ScrollHint from './components/ScrollHint'
 
 export default function App() {
   const [loading, setLoading] = useState(true)
   const [scrolled, setScrolled] = useState(false)
+  const [onHero, setOnHero] = useState(true)
 
   useEffect(() => {
     const timer = setTimeout(() => setLoading(false), 2200)
@@ -22,10 +24,18 @@ export default function App() {
   }, [])
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 50)
+    const onScroll = () => {
+      const y = window.scrollY
+      setScrolled(y > 50)
+      setOnHero(y < window.innerHeight * 0.85)
+    }
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
+
+  const scrollPastHero = () => {
+    document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })
+  }
 
   return (
     <>
@@ -39,8 +49,12 @@ export default function App() {
 
         <Navbar scrolled={scrolled} />
 
+        <ScrollHint show={!loading && onHero} onClick={scrollPastHero} />
+
         <main>
-          <Hero />
+          <section id="hero" className="min-h-dvh">
+            <Hero />
+          </section>
           <About />
           <Experience />
           <Skills />

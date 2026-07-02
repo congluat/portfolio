@@ -21,10 +21,7 @@ const item = {
 
 export default function Hero() {
   return (
-    <section
-      id="hero"
-      className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 pt-24 pb-16"
-    >
+    <div className="relative min-h-dvh flex items-center justify-center px-4 sm:px-6 pt-24 pb-16">
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
           className="absolute top-1/4 -left-32 w-96 h-96 rounded-full bg-accent-cyan/10 blur-[100px]"
@@ -118,22 +115,7 @@ export default function Hero() {
             {profile.phone}
           </span>
         </motion.div>
-
-        <motion.div
-          className="absolute bottom-8 left-1/2 -translate-x-1/2"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 3.5 }}
-        >
-          <motion.div
-            className="w-6 h-10 rounded-full border-2 border-white/20 flex justify-center pt-2"
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 2, repeat: Infinity }}
-          >
-            <motion.div className="w-1 h-2 rounded-full bg-white/40" />
-          </motion.div>
-        </motion.div>
       </motion.div>
-    </section>
+    </div>
   )
 }
