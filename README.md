@@ -1,16 +1,16 @@
-# Nguyen Luat — Portfolio
+# Nguyen Luat — Fraud Ops Console
 
-Personal profile website showcasing professional experience, skills, and contact information. Built with React, Framer Motion, and Tailwind CSS.
+Personal portfolio built as a fraud-operations monitoring console: career history reads as a
+deployment log, skills as a capability matrix, and the whole surface uses signal colours,
+hairline panels and monospace telemetry.
 
-**Live demo:** after deploy → `https://congluat.github.io/portfolio/`
+**Live:** https://congluat.github.io/portfolio/
 
-## Features
+## Stack
 
-- Animated preloader and particle background
-- Scroll-triggered reveals and timeline animations
-- Cursor glow effect (desktop)
-- Fully responsive — mobile & desktop
-- GitHub Pages ready via GitHub Actions
+- [Vite](https://vitejs.dev/) + [React](https://react.dev/) + TypeScript
+- [Framer Motion](https://www.framer.com/motion/) — boot sequence, log expansion, meters, sparklines
+- [Tailwind CSS](https://tailwindcss.com/) — console design tokens in `tailwind.config.js`
 
 ## Local development
 
@@ -19,29 +19,29 @@ npm install
 npm run dev
 ```
 
-Open [http://localhost:5173](http://localhost:5173)
+Opens on [http://localhost:5173](http://localhost:5173).
 
 ## Build
 
 ```bash
 npm run build
-npm run preview
 ```
 
-## Deploy to GitHub Pages
+This compiles to `dist/` and mirrors the output into the repo root (`index.html`, `assets/`,
+`logos/`), which is what GitHub Pages serves.
 
-Push to `main` — GitHub Actions builds and commits the production files (`index.html`, `assets/`, `logos/`) to the repo root. GitHub Pages serves from **main / (root)** automatically.
+## Deployment
 
-Site: **https://congluat.github.io/portfolio/**
+Push to `main`. The workflow in `.github/workflows/deploy.yml` builds and commits the refreshed
+production files back to the root of `main`, so no Pages configuration change is needed.
 
-Local dev uses `index.dev.html` — run `npm run dev` (auto-restores dev `index.html`).
+> Vite's HTML entry is `index.dev.html` rather than `index.html`, so the source entry and the
+> deployed artifact can coexist in the repo root. `npm run dev` syncs the dev entry into
+> `index.html`; `npm run build` restores the production one.
 
-## Tech stack
+## Editing content
 
-- [Vite](https://vitejs.dev/) + [React](https://react.dev/) + TypeScript
-- [Framer Motion](https://www.framer.com/motion/) — animations
-- [Tailwind CSS](https://tailwindcss.com/) — styling
-- [React Icons](https://react-icons.github.io/react-icons/)
+All profile content lives in a single file: `src/data/profile.ts`.
 
 ## License
 

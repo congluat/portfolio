@@ -1,69 +1,74 @@
 import { useEffect, useState } from 'react'
 import { AnimatePresence } from 'framer-motion'
-import Navbar from './components/Navbar'
-import Hero from './components/Hero'
-import About from './components/About'
-import Experience from './components/Experience'
-import Skills from './components/Skills'
-import Education from './components/Education'
-import Contact from './components/Contact'
-import Footer from './components/Footer'
-import ParticleField from './components/ParticleField'
-import CursorGlow from './components/CursorGlow'
-import Preloader from './components/Preloader'
-import ScrollHint from './components/ScrollHint'
+import BootSequence from './components/BootSequence'
+import Crosshair from './components/Crosshair'
+import TopBar from './components/TopBar'
+import StatusBar from './components/StatusBar'
+import Overview from './components/Overview'
+import Profile from './components/Profile'
+import Deployments from './components/Deployments'
+import Capabilities from './components/Capabilities'
+import Credentials from './components/Credentials'
+import Connect from './components/Connect'
+
+const SECTIONS = ['overview', 'profile', 'deployments', 'capabilities', 'credentials', 'connect']
 
 export default function App() {
-  const [loading, setLoading] = useState(true)
-  const [scrolled, setScrolled] = useState(false)
-  const [onHero, setOnHero] = useState(true)
+  const [booting, setBooting] = useState(true)
+  const [activeId, setActiveId] = useState(SECTIONS[0])
 
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 2200)
+    const timer = setTimeout(() => setBooting(false), 1400)
     return () => clearTimeout(timer)
   }, [])
 
   useEffect(() => {
-    const onScroll = () => {
-      const y = window.scrollY
-      setScrolled(y > 50)
-      setOnHero(y < window.innerHeight * 0.85)
-    }
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0]
+        if (visible) setActiveId(visible.target.id)
+      },
+      { rootMargin: '-25% 0px -55% 0px', threshold: [0.1, 0.3, 0.6] },
+    )
 
-  const scrollPastHero = () => {
-    document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })
-  }
+    SECTIONS.forEach((id) => {
+      const el = document.getElementById(id)
+      if (el) observer.observe(el)
+    })
+
+    return () => observer.disconnect()
+  }, [])
 
   return (
     <>
-      <AnimatePresence mode="wait">
-        {loading && <Preloader key="preloader" />}
-      </AnimatePresence>
+      <AnimatePresence>{booting && <BootSequence key="boot" />}</AnimatePresence>
 
-      <div className="relative min-h-screen">
-        <ParticleField />
-        <CursorGlow />
+      {/* Static backdrop layers */}
+      <div className="console-grid pointer-events-none fixed inset-0 z-0 opacity-60" />
+      <div className="scanlines pointer-events-none fixed inset-0 z-0" />
+      <div
+        className="pointer-events-none fixed inset-0 z-0"
+        style={{
+          background:
+            'radial-gradient(ellipse at 50% 0%, rgba(61,220,151,0.06), transparent 55%), radial-gradient(ellipse at 80% 100%, rgba(90,169,255,0.05), transparent 50%)',
+        }}
+      />
 
-        <Navbar scrolled={scrolled} />
+      <Crosshair />
+      <TopBar activeId={activeId} />
 
-        <ScrollHint show={!loading && onHero} onClick={scrollPastHero} />
+      <main className="relative z-10 pb-8">
+        <Overview />
+        <Profile />
+        <Deployments />
+        <Capabilities />
+        <Credentials />
+        <Connect />
+      </main>
 
-        <main>
-          <section id="hero" className="min-h-dvh">
-            <Hero />
-          </section>
-          <About />
-          <Experience />
-          <Skills />
-          <Education />
-          <Contact />
-        </main>
-
-        <Footer />
-      </div>
+      <StatusBar />
     </>
   )
 }

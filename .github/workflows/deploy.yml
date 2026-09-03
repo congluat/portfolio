@@ -3,6 +3,7 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [main]
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -24,17 +25,9 @@ jobs:
           cache: npm
 
       - run: npm ci
-      - run: npm run build
 
-      - name: Publish build to repository root
-        run: |
-          cp dist/index.html index.html
-          rm -rf assets
-          cp -r dist/assets assets
-          rm -rf logos
-          cp -r dist/logos logos
-          cp dist/favicon.svg favicon.svg
-          cp dist/.nojekyll .nojekyll
+      # Also mirrors dist/ into the repo root, which is what Pages serves.
+      - run: npm run build
 
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:

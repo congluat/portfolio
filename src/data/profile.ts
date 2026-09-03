@@ -50,7 +50,8 @@ export const profile = {
       logo: 'logos/nab.png',
       role: 'Senior Software Engineer',
       period: 'Feb 2023 — Present',
-      duration: '3+ years',
+      duration: '3 yrs 7 mos',
+      months: 43,
       location: 'Ho Chi Minh City, Vietnam',
       description:
         'Working in the Fraud and Financial Crime domain at NAB Innovation Centre Vietnam — one of Australia\'s largest financial institutions — building systems that protect customers and strengthen detection capabilities.',
@@ -70,7 +71,8 @@ export const profile = {
       logo: 'logos/tiki.png',
       role: 'Back End Developer',
       period: 'Apr 2022 — Dec 2022',
-      duration: '9 months',
+      duration: '9 mos',
+      months: 9,
       location: 'Ho Chi Minh City, Vietnam',
       description:
         'Member of the Digital Services Department at Vietnam\'s leading e-commerce platform. Participated in the full software lifecycle — from design and planning to development, deployment, and maintenance of high-traffic payment and digital service systems.',
@@ -108,7 +110,8 @@ export const profile = {
       logo: 'logos/sai-digital-black.svg',
       role: 'Software Engineer',
       period: 'Aug 2021 — Apr 2022',
-      duration: '9 months',
+      duration: '9 mos',
+      months: 9,
       location: 'Ho Chi Minh City, Vietnam',
       description:
         'Contributed to Catalyzer Commerce — a next-generation B2B2C e-commerce back office designed to simplify complex enterprise commerce operations with real-time insights and AI-powered forecasting.',
@@ -133,7 +136,8 @@ export const profile = {
       logo: 'logos/sunlife.png',
       role: 'Java Developer',
       period: 'Apr 2020 — Aug 2021',
-      duration: '1 year 5 months',
+      duration: '1 yr 5 mos',
+      months: 17,
       location: 'Ho Chi Minh City, Vietnam',
       description:
         'Developed and maintained the Event Service — a central event-driven platform providing shared capabilities to multiple insurance systems across Sun Life\'s digital ecosystem.',
@@ -158,7 +162,8 @@ export const profile = {
       logo: 'logos/hee.png',
       role: 'Java Software Engineer · Team Lead',
       period: 'Sep 2018 — Mar 2020',
-      duration: '1 year 7 months',
+      duration: '1 yr 7 mos',
+      months: 19,
       location: 'Hong Kong (remote collaboration)',
       description:
         'Led the Java development team at a HKEX-approved Broker Supplied Systems (BSS) vendor, building trading technology for financial institutions in Hong Kong alongside the local engineering team.',
@@ -182,8 +187,9 @@ export const profile = {
       company: 'DXC Technology',
       logo: 'logos/dxc.svg',
       role: 'Software Engineer · Team Lead',
-      period: 'Mar 2016 — Aug 2018',
-      duration: '2 years 8 months',
+      period: 'Jan 2016 — Aug 2018',
+      duration: '2 yrs 8 mos',
+      months: 32,
       location: 'Ho Chi Minh City, Vietnam · Kuala Lumpur, Malaysia',
       description:
         'Progressed from Java Fresher to Team Lead at a global IT services company. Led development teams, authored technical specifications, and supported system integration and user acceptance testing onsite in Malaysia.',
@@ -203,7 +209,8 @@ export const profile = {
       logo: 'logos/vietbank.ico',
       role: 'Software Development Intern',
       period: 'Jul 2014 — Sep 2014',
-      duration: '3 months',
+      duration: '3 mos',
+      months: 3,
       location: 'Vietnam',
       description:
         'Internship at Vietbank (Ngân Hàng TMCP Việt Nam Thương Tín) — gained early exposure to banking software development practices and enterprise IT environments.',
@@ -218,9 +225,9 @@ export const profile = {
 }
 
 export const navLinks = [
-  { id: 'about', label: 'About' },
-  { id: 'experience', label: 'Experience' },
-  { id: 'skills', label: 'Skills' },
-  { id: 'education', label: 'Education' },
-  { id: 'contact', label: 'Contact' },
+  { id: 'profile', label: 'Profile' },
+  { id: 'deployments', label: 'Deployments' },
+  { id: 'capabilities', label: 'Capabilities' },
+  { id: 'credentials', label: 'Credentials' },
+  { id: 'connect', label: 'Connect' },
 ]

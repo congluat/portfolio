@@ -1,14 +1,12 @@
 import { useState } from 'react'
-import { motion } from 'framer-motion'
 
 interface CompanyLogoProps {
   src: string
-  alt: string
   company: string
-  darkBg?: boolean
+  size?: 'sm' | 'md'
 }
 
-function getInitials(company: string) {
+function initials(company: string) {
   return company
     .split(/\s+/)
     .filter((word) => word.length > 2 && word[0] === word[0].toUpperCase())
@@ -18,31 +16,27 @@ function getInitials(company: string) {
     .toUpperCase()
 }
 
-export default function CompanyLogo({ src, alt, company, darkBg }: CompanyLogoProps) {
-  const [error, setError] = useState(false)
-  const logoSrc = `${import.meta.env.BASE_URL}${src.replace(/^\//, '')}`
+export default function CompanyLogo({ src, company, size = 'sm' }: CompanyLogoProps) {
+  const [failed, setFailed] = useState(false)
+  const box = size === 'sm' ? 'h-8 w-8' : 'h-11 w-11'
 
   return (
-    <motion.div
-      className={`w-14 h-14 sm:w-16 sm:h-16 rounded-xl flex items-center justify-center p-2.5 shrink-0 overflow-hidden border border-white/10 shadow-lg ${
-        darkBg ? 'bg-black' : 'bg-white'
-      }`}
-      whileHover={{ scale: 1.08, rotate: 3 }}
-      transition={{ type: 'spring', stiffness: 400, damping: 15 }}
+    <span
+      className={`${box} flex shrink-0 items-center justify-center overflow-hidden border border-console-border bg-white p-1 opacity-85 transition-opacity duration-300 group-hover:opacity-100`}
     >
-      {!error ? (
-        <img
-          src={logoSrc}
-          alt={alt}
-          className="max-w-full max-h-full object-contain"
-          loading="lazy"
-          onError={() => setError(true)}
-        />
-      ) : (
-        <span className="font-display font-bold text-surface text-xs sm:text-sm">
-          {getInitials(company)}
+      {failed ? (
+        <span className="font-mono text-[9px] font-bold text-console-bg">
+          {initials(company)}
         </span>
+      ) : (
+        <img
+          src={`${import.meta.env.BASE_URL}${src.replace(/^\//, '')}`}
+          alt=""
+          loading="lazy"
+          className="max-h-full max-w-full object-contain"
+          onError={() => setFailed(true)}
+        />
       )}
-    </motion.div>
+    </span>
   )
 }
