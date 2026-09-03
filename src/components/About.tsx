@@ -8,9 +8,9 @@ export default function About() {
   const inView = useInView(ref, { once: true, margin: '-100px' })
 
   const stats = [
-    { value: '9+', label: 'Years Experience' },
+    { value: '11+', label: 'Years Experience' },
     { value: '7', label: 'Companies' },
-    { value: '3', label: 'Cloud Platforms' },
+    { value: '2', label: 'Cloud Platforms' },
     { value: '∞', label: 'Lines of Java' },
   ]
 

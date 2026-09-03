@@ -1,27 +1,28 @@
 import { useRef, type ComponentType } from 'react'
 import { motion, useInView } from 'framer-motion'
 import {
-  SiGooglecloud,
   SiKubernetes,
   SiSpringboot,
   SiDocker,
-  SiMongodb,
+  SiPostgresql,
   SiRedis,
-  SiRabbitmq,
+  SiApachekafka,
+  SiOpensearch,
 } from 'react-icons/si'
-import { FaJava, FaAws } from 'react-icons/fa'
+import { FaJava, FaAws, FaMicrosoft } from 'react-icons/fa'
 import { profile } from '../data/profile'
 import SectionHeading from './SectionHeading'
 
 const iconMap: Record<string, ComponentType<{ className?: string }>> = {
   'Java / Spring Boot': FaJava,
   AWS: FaAws,
+  Azure: FaMicrosoft,
   Kubernetes: SiKubernetes,
-  'Google Cloud Platform': SiGooglecloud,
   'Docker / CI-CD': SiDocker,
-  'MongoDB / SQL': SiMongodb,
+  'PostgreSQL / SQL': SiPostgresql,
   Redis: SiRedis,
-  'RabbitMQ / Kafka': SiRabbitmq,
+  Kafka: SiApachekafka,
+  'OpenSearch / Splunk': SiOpensearch,
 }
 
 export default function Skills() {
