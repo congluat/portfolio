@@ -14,4 +14,4 @@ export type UiStyle = 'console' | 'editorial' | 'bento' | 'blueprint' | 'ide'
  *   blueprint  Technical drawing — career as a service dependency diagram
  *   ide        Code editor workspace — file tree, tabs, command palette
  */
-export const UI_STYLE: UiStyle = 'ide'
+export const UI_STYLE: UiStyle = 'editorial'
