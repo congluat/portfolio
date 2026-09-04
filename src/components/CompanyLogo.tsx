@@ -3,7 +3,9 @@ import { useState } from 'react'
 interface CompanyLogoProps {
   src: string
   company: string
-  size?: 'sm' | 'md'
+  /** Container classes, so each UI style can size and frame the logo itself. */
+  className?: string
+  fallbackClassName?: string
 }
 
 function initials(company: string) {
@@ -16,16 +18,20 @@ function initials(company: string) {
     .toUpperCase()
 }
 
-export default function CompanyLogo({ src, company, size = 'sm' }: CompanyLogoProps) {
+export default function CompanyLogo({
+  src,
+  company,
+  className = 'h-8 w-8 border border-console-border bg-white opacity-85 transition-opacity duration-300 group-hover:opacity-100',
+  fallbackClassName = 'text-console-bg',
+}: CompanyLogoProps) {
   const [failed, setFailed] = useState(false)
-  const box = size === 'sm' ? 'h-8 w-8' : 'h-11 w-11'
 
   return (
     <span
-      className={`${box} flex shrink-0 items-center justify-center overflow-hidden border border-console-border bg-white p-1 opacity-85 transition-opacity duration-300 group-hover:opacity-100`}
+      className={`flex shrink-0 items-center justify-center overflow-hidden p-1 ${className}`}
     >
       {failed ? (
-        <span className="font-mono text-[9px] font-bold text-console-bg">
+        <span className={`font-mono text-[9px] font-bold ${fallbackClassName}`}>
           {initials(company)}
         </span>
       ) : (

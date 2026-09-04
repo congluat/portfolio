@@ -1,5 +1,5 @@
 import { motion, useScroll, useSpring } from 'framer-motion'
-import { profile } from '../data/profile'
+import { profile } from '../../data/profile'
 
 export default function StatusBar() {
   const { scrollYProgress } = useScroll()

@@ -8,17 +8,41 @@
   }
 
   body {
-    @apply bg-console-bg text-ink font-sans antialiased overflow-x-hidden;
+    @apply overflow-x-hidden antialiased;
+  }
+
+  /* The page canvas is owned by the active style (see src/config.ts). */
+  html[data-ui='console'] body {
+    @apply bg-console-bg text-ink font-sans;
     font-feature-settings: 'tnum' 1, 'cv05' 1;
   }
 
-  ::selection {
-    @apply bg-signal-green/25 text-white;
+  html[data-ui='editorial'] body {
+    @apply bg-paper text-graphite font-sans;
+  }
+
+  html[data-ui='bento'] body {
+    @apply bg-bento-bg text-bento-ink font-sans;
+  }
+
+  html[data-ui='blueprint'] body {
+    @apply bg-bp-bg text-draft font-mono;
+  }
+
+  html[data-ui='ide'] body {
+    @apply bg-ide-bg text-syntax-text font-mono;
   }
 }
 
+@layer utilities {
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+/* ---------------------------------------------------------------- console */
+
 @layer components {
-  /* Graph-paper backdrop shared by the whole console */
   .console-grid {
     background-image:
       linear-gradient(to right, theme('colors.console.line') 1px, transparent 1px),
@@ -54,10 +78,6 @@
   .corner-ticks:hover::after {
     @apply opacity-100;
   }
-
-  .tabular {
-    font-variant-numeric: tabular-nums;
-  }
 }
 
 @layer utilities {
@@ -76,22 +96,57 @@
   }
 }
 
-::-webkit-scrollbar {
+/* -------------------------------------------------------------- blueprint */
+
+@layer components {
+  .bp-grid {
+    background-image:
+      linear-gradient(to right, theme('colors.bp.grid') 1px, transparent 1px),
+      linear-gradient(to bottom, theme('colors.bp.grid') 1px, transparent 1px),
+      linear-gradient(to right, theme('colors.bp.line') 1px, transparent 1px),
+      linear-gradient(to bottom, theme('colors.bp.line') 1px, transparent 1px);
+    background-size:
+      20px 20px,
+      20px 20px,
+      100px 100px,
+      100px 100px;
+  }
+}
+
+/* -------------------------------------------------------------- scrollbar */
+
+html[data-ui='console'] ::-webkit-scrollbar,
+html[data-ui='ide'] ::-webkit-scrollbar,
+html[data-ui='blueprint'] ::-webkit-scrollbar {
   width: 10px;
   height: 10px;
 }
 
-::-webkit-scrollbar-track {
+html[data-ui='console'] ::-webkit-scrollbar-track {
   background: #070910;
 }
 
-::-webkit-scrollbar-thumb {
+html[data-ui='console'] ::-webkit-scrollbar-thumb {
   background: #1c2534;
   border: 2px solid #070910;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: #2a3547;
+html[data-ui='ide'] ::-webkit-scrollbar-track {
+  background: #181825;
+}
+
+html[data-ui='ide'] ::-webkit-scrollbar-thumb {
+  background: #45475a;
+  border: 2px solid #181825;
+}
+
+html[data-ui='blueprint'] ::-webkit-scrollbar-track {
+  background: #071a30;
+}
+
+html[data-ui='blueprint'] ::-webkit-scrollbar-thumb {
+  background: #1d4670;
+  border: 2px solid #071a30;
 }
 
 @media (prefers-reduced-motion: reduce) {

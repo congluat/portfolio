@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { HiOutlineClipboardCopy, HiOutlineCheck, HiOutlineExternalLink } from 'react-icons/hi'
-import { profile } from '../data/profile'
+import { profile } from '../../data/profile'
 import Panel from './Panel'
 
 interface Channel {

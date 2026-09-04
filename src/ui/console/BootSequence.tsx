@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
-import { profile } from '../data/profile'
+import { profile } from '../../data/profile'
 
 const LINES = [
   'establishing secure channel .............',

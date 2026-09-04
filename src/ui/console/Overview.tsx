@@ -1,10 +1,10 @@
 import { motion } from 'framer-motion'
 import { HiOutlineLocationMarker, HiOutlineMail } from 'react-icons/hi'
 import { FaLinkedin } from 'react-icons/fa'
-import { profile } from '../data/profile'
-import ScrambleText from './ScrambleText'
-import CountUp from './CountUp'
-import Sparkline from './Sparkline'
+import { profile } from '../../data/profile'
+import ScrambleText from '../../components/ScrambleText'
+import CountUp from '../../components/CountUp'
+import Sparkline from '../../components/Sparkline'
 
 const METRICS = [
   {

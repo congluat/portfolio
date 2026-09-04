@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { profile } from '../data/profile'
+import { profile } from '../../data/profile'
 import Panel from './Panel'
-import CompanyLogo from './CompanyLogo'
+import CompanyLogo from '../../components/CompanyLogo'
 
 type Job = (typeof profile.experience)[number]
 

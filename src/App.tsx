@@ -1,74 +1,23 @@
-import { useEffect, useState } from 'react'
-import { AnimatePresence } from 'framer-motion'
-import BootSequence from './components/BootSequence'
-import Crosshair from './components/Crosshair'
-import TopBar from './components/TopBar'
-import StatusBar from './components/StatusBar'
-import Overview from './components/Overview'
-import Profile from './components/Profile'
-import Deployments from './components/Deployments'
-import Capabilities from './components/Capabilities'
-import Credentials from './components/Credentials'
-import Connect from './components/Connect'
+import { Suspense, lazy } from 'react'
+import type { ComponentType, LazyExoticComponent } from 'react'
+import { UI_STYLE } from './config'
+import type { UiStyle } from './config'
 
-const SECTIONS = ['overview', 'profile', 'deployments', 'capabilities', 'credentials', 'connect']
+// Each style is a separate chunk, so only the selected one is downloaded.
+const STYLES: Record<UiStyle, LazyExoticComponent<ComponentType>> = {
+  console: lazy(() => import('./ui/console')),
+  editorial: lazy(() => import('./ui/editorial')),
+  bento: lazy(() => import('./ui/bento')),
+  blueprint: lazy(() => import('./ui/blueprint')),
+  ide: lazy(() => import('./ui/ide')),
+}
 
 export default function App() {
-  const [booting, setBooting] = useState(true)
-  const [activeId, setActiveId] = useState(SECTIONS[0])
-
-  useEffect(() => {
-    const timer = setTimeout(() => setBooting(false), 1400)
-    return () => clearTimeout(timer)
-  }, [])
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0]
-        if (visible) setActiveId(visible.target.id)
-      },
-      { rootMargin: '-25% 0px -55% 0px', threshold: [0.1, 0.3, 0.6] },
-    )
-
-    SECTIONS.forEach((id) => {
-      const el = document.getElementById(id)
-      if (el) observer.observe(el)
-    })
-
-    return () => observer.disconnect()
-  }, [])
+  const ActiveUi = STYLES[UI_STYLE]
 
   return (
-    <>
-      <AnimatePresence>{booting && <BootSequence key="boot" />}</AnimatePresence>
-
-      {/* Static backdrop layers */}
-      <div className="console-grid pointer-events-none fixed inset-0 z-0 opacity-60" />
-      <div className="scanlines pointer-events-none fixed inset-0 z-0" />
-      <div
-        className="pointer-events-none fixed inset-0 z-0"
-        style={{
-          background:
-            'radial-gradient(ellipse at 50% 0%, rgba(61,220,151,0.06), transparent 55%), radial-gradient(ellipse at 80% 100%, rgba(90,169,255,0.05), transparent 50%)',
-        }}
-      />
-
-      <Crosshair />
-      <TopBar activeId={activeId} />
-
-      <main className="relative z-10 pb-8">
-        <Overview />
-        <Profile />
-        <Deployments />
-        <Capabilities />
-        <Credentials />
-        <Connect />
-      </main>
-
-      <StatusBar />
-    </>
+    <Suspense fallback={null}>
+      <ActiveUi />
+    </Suspense>
   )
 }

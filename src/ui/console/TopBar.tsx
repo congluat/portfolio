@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { HiMenuAlt4, HiX } from 'react-icons/hi'
-import { navLinks } from '../data/profile'
+import { navLinks } from '../../data/profile'
 
 interface TopBarProps {
   activeId: string

@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { profile } from '../data/profile'
+import { profile } from '../../data/profile'
 import Panel from './Panel'
 
 const CATEGORY_TEXT: Record<string, string> = {
