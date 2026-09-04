@@ -26,10 +26,10 @@ jobs:
 
       - run: npm ci
 
-      # Also mirrors dist/ into the repo root, which is what Pages serves.
+      # Builds into docs/ and, during the transition, mirrors it to the root.
       - run: npm run build
 
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: 'Deploy site [skip ci]'
-          file_pattern: 'index.html assets logos favicon.svg .nojekyll'
+          file_pattern: 'docs index.html assets logos favicon.svg .nojekyll'
