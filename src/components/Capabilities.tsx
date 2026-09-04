@@ -2,18 +2,6 @@ import { motion } from 'framer-motion'
 import { profile } from '../data/profile'
 import Panel from './Panel'
 
-const SEGMENTS = 24
-
-const CATEGORY_COLOR: Record<string, string> = {
-  Backend: 'bg-signal-green',
-  Cloud: 'bg-signal-blue',
-  Architecture: 'bg-signal-violet',
-  DevOps: 'bg-signal-amber',
-  Database: 'bg-signal-green',
-  Messaging: 'bg-signal-blue',
-  Observability: 'bg-signal-violet',
-}
-
 const CATEGORY_TEXT: Record<string, string> = {
   Backend: 'text-signal-green',
   Cloud: 'text-signal-blue',
@@ -24,28 +12,8 @@ const CATEGORY_TEXT: Record<string, string> = {
   Observability: 'text-signal-violet',
 }
 
-function Meter({ level, category, delay }: { level: number; category: string; delay: number }) {
-  const filled = Math.round((level / 100) * SEGMENTS)
-  const color = CATEGORY_COLOR[category] ?? 'bg-signal-green'
-
-  return (
-    <span className="flex gap-[3px]" aria-hidden="true">
-      {Array.from({ length: SEGMENTS }, (_, i) => (
-        <motion.span
-          key={i}
-          className={`h-3.5 w-[3px] ${i < filled ? color : 'bg-console-border'}`}
-          initial={{ opacity: 0, scaleY: 0.3 }}
-          whileInView={{ opacity: i < filled ? 1 : 0.6, scaleY: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: delay + i * 0.014, duration: 0.22 }}
-        />
-      ))}
-    </span>
-  )
-}
-
 export default function Capabilities() {
-  const categories = [...new Set(profile.skills.map((s) => s.category))]
+  const categories = [...new Set(profile.skills.map((skill) => skill.category))]
 
   return (
     <section id="capabilities" className="px-4 py-10 sm:px-6">
@@ -57,37 +25,41 @@ export default function Capabilities() {
               {profile.skills.length} modules · {categories.length} classes
             </span>
           }
-          bodyClassName=""
         >
-          {profile.skills.map((skill, i) => (
-            <motion.div
-              key={skill.name}
-              className="group grid grid-cols-[1fr_auto] items-center gap-x-4 gap-y-2 border-b border-console-border px-4 py-3.5 transition-colors last:border-b-0 hover:bg-console-hover sm:grid-cols-[minmax(0,1fr)_auto_auto] sm:px-6"
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-30px' }}
-              transition={{ delay: i * 0.05, duration: 0.4 }}
-            >
-              <span className="min-w-0">
-                <span className="block truncate font-mono text-sm text-ink">{skill.name}</span>
-                <span
-                  className={`font-mono text-2xs uppercase tracking-[0.14em] ${
-                    CATEGORY_TEXT[skill.category] ?? 'text-ink-faint'
-                  } opacity-70`}
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            {categories.map((category, i) => (
+              <motion.div
+                key={category}
+                className="group border border-console-border bg-console-raised p-4 transition-colors hover:border-ink-faint/40 sm:p-5"
+                initial={{ opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-40px' }}
+                transition={{ delay: i * 0.07, duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+              >
+                <p
+                  className={`mb-3 border-b border-console-border pb-2.5 font-mono text-2xs uppercase tracking-[0.18em] ${
+                    CATEGORY_TEXT[category] ?? 'text-ink-faint'
+                  }`}
                 >
-                  {skill.category}
-                </span>
-              </span>
+                  {category}
+                </p>
 
-              <span className="col-span-2 sm:col-span-1 sm:justify-self-end">
-                <Meter level={skill.level} category={skill.category} delay={i * 0.05} />
-              </span>
-
-              <span className="tabular justify-self-end font-mono text-xs text-ink-dim sm:w-12 sm:text-right">
-                {skill.level}%
-              </span>
-            </motion.div>
-          ))}
+                <ul className="space-y-2">
+                  {profile.skills
+                    .filter((skill) => skill.category === category)
+                    .map((skill) => (
+                      <li
+                        key={skill.name}
+                        className="flex gap-2 font-mono text-xs leading-relaxed text-ink sm:text-sm"
+                      >
+                        <span className="shrink-0 text-ink-faint">›</span>
+                        {skill.name}
+                      </li>
+                    ))}
+                </ul>
+              </motion.div>
+            ))}
+          </div>
         </Panel>
       </div>
     </section>
