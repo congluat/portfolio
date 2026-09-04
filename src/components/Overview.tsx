@@ -9,6 +9,7 @@ import Sparkline from './Sparkline'
 const METRICS = [
   {
     label: 'years_active',
+    note: 'since 2014',
     value: 11,
     suffix: '+',
     series: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
@@ -16,6 +17,7 @@ const METRICS = [
   },
   {
     label: 'deployments',
+    note: 'companies shipped with',
     value: 7,
     suffix: '',
     series: [1, 2, 2, 3, 4, 5, 6, 7],
@@ -23,17 +25,11 @@ const METRICS = [
   },
   {
     label: 'domains',
+    note: 'banking · commerce · insurance · trading',
     value: 4,
     suffix: '',
     series: [1, 1, 2, 2, 3, 3, 4, 4],
     color: '#a78bfa',
-  },
-  {
-    label: 'peak_volume_bn_vnd',
-    value: 5000,
-    suffix: '',
-    series: [120, 400, 900, 1600, 2600, 3600, 4400, 5000],
-    color: '#ffb648',
   },
 ]
 
@@ -134,28 +130,30 @@ export default function Overview() {
               <span className="normal-case tracking-normal text-signal-green/70">realtime</span>
             </div>
 
-            <div className="grid grid-cols-2">
+            <div className="divide-y divide-console-border">
               {METRICS.map((metric, i) => (
                 <div
                   key={metric.label}
-                  className={`p-5 sm:p-6 ${i % 2 === 0 ? 'border-r' : ''} ${
-                    i < 2 ? 'border-b' : ''
-                  } border-console-border`}
+                  className="flex items-center justify-between gap-4 p-5 sm:px-6 sm:py-7"
                 >
-                  <p className="font-mono text-2xs uppercase tracking-[0.16em] text-ink-faint">
-                    {metric.label}
-                  </p>
-                  <p
-                    className="mt-2 font-mono text-3xl font-bold sm:text-4xl"
-                    style={{ color: metric.color }}
-                  >
-                    <CountUp to={metric.value} suffix={metric.suffix} duration={1.8} />
-                  </p>
+                  <div className="min-w-0">
+                    <p className="font-mono text-2xs uppercase tracking-[0.16em] text-ink-faint">
+                      {metric.label}
+                    </p>
+                    <p
+                      className="mt-1.5 font-mono text-3xl font-bold leading-none sm:text-4xl"
+                      style={{ color: metric.color }}
+                    >
+                      <CountUp to={metric.value} suffix={metric.suffix} duration={1.8} />
+                    </p>
+                    <p className="mt-2 font-mono text-2xs text-ink-faint/70">{metric.note}</p>
+                  </div>
+
                   <Sparkline
                     data={metric.series}
                     stroke={metric.color}
                     delay={0.4 + i * 0.12}
-                    className="mt-3 h-7 w-full"
+                    className="h-9 w-24 shrink-0 sm:w-32"
                   />
                 </div>
               ))}
